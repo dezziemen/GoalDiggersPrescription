@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block home_button %}
+{#    <form action="{% url 'admin_home' %}" method="GET">#}
+{#        <h1>{{ user.user_id }}</h1>#}
+{#        <button type="submit" class="btn btn-primary">Home</button>#}
+{#    </form>#}
+{% endblock %}
+{% block logout_button %}
+    <form class="logout-link" action="{% url 'accounts:logout' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-dark">Logout</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'home.html' %}
+
+{% block content %}
+    <div class="container container-table">
+        <h1>Create User</h1>
+        <form class="site-form" action="" method="post">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <label for="user_type" class="col-sm-2 col-form-label">{{ form.user_type.label }}</label>
+                <div class="col-sm-10">
+                    {{ form.user_type }}
+                    {{ form.user_type.errors }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="email" class="col-sm-2 col-form-label">{{ form.email.label }}</label>
+                <div class="col-sm-10">
+                    {{ form.email }}
+                    {{ form.email.errors }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="password" class="col-sm-2 col-form-label">{{ form.password1.label }}</label>
+                <div class="col-sm-10">
+                    {{ form.password1 }}
+                    {{ form.password1.errors }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="password" class="col-sm-2 col-form-label">{{ form.password2.label }}</label>
+                <div class="col-sm-10">
+                    {{ form.password2 }}
+                    {{ form.password2.errors }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="full_name" class="col-sm-2 col-form-label">{{ form.full_name.label }}</label>
+                <div class="col-sm-10">
+                    {{ form.full_name }}
+                    {{ form.full_name.errors }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="address" class="col-sm-2 col-form-label">{{ form.address.label }}</label>
+                <div class="col-sm-10">
+                    {{ form.address }}
+                    {{ form.address.errors }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="phone_number" class="col-sm-2 col-form-label">{{ form.phone_number.label }}</label>
+                <div class="col-sm-10">
+                    {{ form.phone_number }}
+                    {{ form.phone_number.errors }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Create User</button>
+        </form>
+    </div>
+{% endblock %}
