@@ -9,19 +9,19 @@ class EditCustomUserForm(forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
-        try:
-            account = CustomUser.objects.get(email=email)
-        except CustomUser.DoesNotExist:
+        matching_emails = CustomUser.objects.exclude(pk=self.instance.pk).filter(email=email)
+        if matching_emails.exists():
+            raise forms.ValidationError(f"Email {email} is already in use. ")
+        else:
             return email
-        raise forms.ValidationError(f"Email {email} is already in use.")
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data['phone_number']
-        try:
-            account = CustomUser.objects.get(phone_number=phone_number)
-        except CustomUser.DoesNotExist:
+        matching_phone_number = CustomUser.objects.exclude(pk=self.instance.pk).filter(phone_number=phone_number)
+        if matching_phone_number.exists():
+            raise forms.ValidationError(f"Phone number {phone_number} is already in use.")
+        else:
             return phone_number
-        raise forms.ValidationError(f"Phone number {phone_number} is already in use.")
 
     def save(self, commit=True):
         account = super(EditCustomUserForm, self).save(commit=False)

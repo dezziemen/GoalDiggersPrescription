@@ -1,39 +1,90 @@
 {% extends 'home.html' %}
 
 {% block content %}
-    <div class="container">
-        <h1>Admin home</h1>
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover">
-                <thead class="thead-dark">
-                    <tr scope="row">
-                        <th scope="col">ID<a href="?order_by=id">
-                            <span class="material-icons">arrow_drop_down</span>
-                        </a></th>
-                        <th scope="col">Email<a href="?order_by=email">
-                            <span class="material-icons">arrow_drop_down</span>
-                        </a></th>
-                        <th scope="col">Full Name<a href="?order_by=full_name">
-                            <span class="material-icons">arrow_drop_down</span>
-                        </a></th>
-                        <th scope="col">Phone Number<a href="?order_by=phone_number">
-                            <span class="material-icons">arrow_drop_down</span>
-                        </a></th>
-                        <th scope="col">User Type<a href="?order_by=user_type">
-                            <span class="material-icons">arrow_drop_down</span>
-                        </a></th>
-                    </tr>
-                </thead>
-                {% for user in acc_info %}
-                    <tr scope="row">
-                        <td><a href="{% url 'edit_user' user_id=user.id %}">{{ user.id }}</a></td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.full_name }}</td>
-                        <td>{{ user.phone_number }}</td>
-                        <td>{{ user.user_type }}</td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </div>
-    </div>
+	<div class="container">
+		<!-- Title -->
+		<h1>Admin home</h1>
+		<form action="{% url 'search_user' %}" method="get">
+			<input type="search" placeholder="Search..." name="search_query"
+				{% if searched %}
+					value="{{ query }}"
+				{% endif %}
+			required>
+			<button type="submit" class="btn btn-success icon-button">
+				<span class="material-icons">search</span>
+			</button>
+			<a href="{% url 'home' %}" class="btn btn-secondary
+				{% if not searched %}
+					disabled
+				{% endif %}
+			">Reset Search</a>
+			<p><input type="checkbox" id="id_checkbox" name="id_checkbox"
+					{% if id_checkbox %}
+								checked
+					{% endif %}>
+				<label for="id_checkbox">ID</label>
+				<input type="checkbox" id="email_checkbox" name="email_checkbox"
+						{% if email_checkbox %}
+							 checked
+						{% endif %}>
+				<label for="email_checkbox">Email</label>
+				<input type="checkbox" id="full_name_checkbox" name="full_name_checkbox"
+						{% if full_name_checkbox %}
+							 checked
+						{% endif %}>
+				<label for="full_name_checkbox">Full Name</label>
+				<input type="checkbox" id="phone_number_checkbox" name="phone_number_checkbox"
+						{% if phone_number_checkbox %}
+							 checked
+						{% endif %}>
+				<label for="phone_number_checkbox">Phone Number</label>
+				<input type="checkbox" id="address_checkbox" name="address_checkbox"
+						{% if address_checkbox %}
+							 checked
+						{% endif %}>
+				<label for="address_checkbox">Address</label></p>
+		</form>
+		<!-- Table -->
+		<div style="display: inline-block; text-align: right;">
+			<a href="{% url 'accounts:create_user' %}" class="btn btn-primary icon-button">
+				<span class="material-icons">person_add</span>
+			</a>
+			<div class="table-responsive">
+				<table class="table table-striped table-bordered table-hover">
+					<!-- Header -->
+					<thead class="thead-dark">
+					<!-- Row -->
+					<tr>
+						<th scope="col">ID<a href="?order_by=id">
+							<span class="material-icons">arrow_drop_down</span>
+						</a></th>
+						<th scope="col">Email<a href="?order_by=email">
+							<span class="material-icons">arrow_drop_down</span>
+						</a></th>
+						<th scope="col">Full Name<a href="?order_by=full_name">
+							<span class="material-icons">arrow_drop_down</span>
+						</a></th>
+						<th scope="col">Phone Number<a href="?order_by=phone_number">
+							<span class="material-icons">arrow_drop_down</span>
+						</a></th>
+						<th scope="col">User Type<a href="?order_by=user_type">
+							<span class="material-icons">arrow_drop_down</span>
+						</a></th>
+					</tr>
+					</thead>
+					<!-- For each user -->
+					{% for user in acc %}
+						<!-- User row -->
+						<tr>
+							<td><a href="{% url 'edit_user' user_id=user.id %}">{{ user.id }}</a></td>
+							<td><a href="{% url 'edit_user' user_id=user.id %}">{{ user.email }}</a></td>
+							<td><a href="{% url 'edit_user' user_id=user.id %}">{{ user.full_name }}</a></td>
+							<td><a href="{% url 'edit_user' user_id=user.id %}">{{ user.phone_number }}</a></td>
+							<td><a href="{% url 'edit_user' user_id=user.id %}">{{ user.user_type }}</a></td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+	</div>
 {% endblock %}

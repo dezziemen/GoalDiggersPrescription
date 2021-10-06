@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
+{% block home_button %}
+    <form action="{% url 'home' %}" method="GET">
+        <button type="submit" class="btn btn-primary">Home</button>
+    </form>
+{% endblock %}
 {% block logout_button %}
     <form class="logout-link" action="{% url 'accounts:logout' %}" method="POST">
         {% csrf_token %}

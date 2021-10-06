@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 
+{% block home_button %}
+    <form action="{% url 'accounts:register' %}" method="GET">
+        <button type="submit" class="btn btn-primary">
+            Register
+        </button>
+    </form>
+{% endblock %}
+
 {% block content %}
     <div class="container">
         <h1>Login Page</h1>
-        <form class="site-form" action="{% url 'accounts:login'%}" method="post">
+        <form class="site-form" action="{% url 'accounts:login' %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
             {% if request.GET.next %}
